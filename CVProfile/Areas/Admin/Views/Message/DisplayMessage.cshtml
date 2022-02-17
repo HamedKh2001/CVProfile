@@ -1,0 +1,56 @@
+﻿@model DataLayer.Entities.Contact
+@{
+    @using CoreLayer.Utilities;
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">پـیـام از <span class="text-info">@Model.User.FullName</span></h3>
+    </div>
+    <form role="form" method="post" asp-area="Admin" asp-controller="Owner" asp-action="Create">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                       <label asp-for="Subject"></label>
+                    <input asp-for="Subject" class="form-control" disabled/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="row">
+                  <div class="form-group col-md-3">
+                    <label asp-for="User.FullName" class="control-label"></label>
+                    <input asp-for="User.FullName" class="form-control" disabled/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="CreationDate"></label>
+                    <input value="@Model.CreationDate.ToShamsi()  @Model.CreationDate.ToShamsiDay()  @Model.CreationDate.ToShortTimeString()" class="form-control" disabled/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Lvl" class="control-label"></label>
+                    <input asp-for="Lvl" class="form-control" disabled/>
+                </div> 
+                <div class="form-group col-md-3">
+                    <label asp-for="User.Phonenumber" class="control-label"></label>
+                    <input asp-for="User.Phonenumber" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="ContactText" class="control-label"></label>
+                    <textarea style="max-width:fit-content" asp-for="ContactText" class="form-control" disabled></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="position:center" class="box-footer">
+            <button type="submit" class="btn btn-danger btn-lg" style="min-width:150px">حـــذف</button>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+}

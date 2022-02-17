@@ -1,0 +1,117 @@
+﻿@model CVProfile.Models.SignUpViewModel
+@{
+    Layout = "_LoginLayout";
+}
+
+<div class="container-login100">
+    <div class="wrap-login100">
+        <div id="image-holder" class="login100-pic js-tilt" data-tilt>
+            <img src="/Login/images/img-01.png" alt="IMG">
+        </div>
+
+        <form class="login100-form validate-form" asp-controller="Register" asp-action="SignUp" enctype="multipart/form-data">
+            <span class="login100-form-title">
+                ثبت نام در سایت
+            </span>
+
+            <div class="wrap-input100 validate-input">
+                <input asp-for="FullName" class="input100" placeholder="نام و نام خانوادگی">
+                <span asp-validation-for="FullName" style="color: red"></span>
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="wrap-input100 validate-input">
+                <input asp-for="PhoneNumber" class="input100" placeholder="شماره تلفن">
+                <span asp-validation-for="PhoneNumber" style="color: red"></span>
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="wrap-input100 validate-input">
+                <input asp-for="PassWord" class="input100" placeholder="رمز">
+                <span asp-validation-for="PassWord" style="color: red"></span>
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="wrap-input100 validate-input">
+                <input asp-for="RePassWord" class="input100" placeholder="تکرار رمز">
+                <span asp-validation-for="RePassWord" style="color: red"></span>
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="wrap-input100 validate-input">
+                <input id="photo" asp-for="ProfilePhoto" class="form-control-file">
+                <span asp-validation-for="ProfilePhoto" style="color: red"></span>
+                @*<div id="image-holder"></div>*@
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="g-recaptcha" data-sitekey="6Lf0KvkdAAAAAFtpIjMOTUUXXznahHIF1xEYK7OB"></div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                    ثبت نام
+                </button>
+            </div>
+
+            <div class="text-center p-t-12">
+                <span class="txt1">
+                    اکانت دارید؟
+                </span>
+                <a class="txt2" href="/register/login">
+                    ورود به سایت
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $("#photo").on('change', function () {
+           
+            //Get count of selected files
+            var countFiles = $(this)[0].files.length;
+            var imgPath = $(this)[0].value;
+            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+            var image_holder = $("#image-holder");
+            image_holder.empty();
+            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof (FileReader) != "undefined") {
+                    //loop for each file selected for uploaded.
+                    for (var i = 0; i < countFiles; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("<img />", {
+                                "src": e.target.result,
+                                "style": "",
+                                "class": "margin circular--portrait"
+                            }).appendTo(image_holder);
+                        }
+                        image_holder.show();
+                        reader.readAsDataURL($(this)[0].files[i]);
+                    }
+                } else {
+                    alert("This browser does not support FileReader.");
+                }
+            } else {
+                alert("Pls select only images");
+            }
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@model List<DataLayer.Entities.Skill>
+@{
+    ViewData["title"] = "تمام مهارت ها";
+    int index = 1;
+}
+
+<!-- Modal -->
+<div class="modal fade" id="MyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="ModalBody" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class="box">
+            <div class="box-header">
+                <h2 class="box-title"> @ViewData["title"]</h2>
+                <div class="col col-md-12">
+                    <div style="text-align:center">
+                        <a href="/admin/Skill/Create" class="btn btn-success btn-lg " style="width:40%"><i class="fa fa-plus">&nbsp;افزودن مهارت جدید</i></a>
+                    </div>
+                </div>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="جستجو">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>شماره</th>
+                            <th>نام مهارت</th>
+                            <th>درصد</th>
+                            <th>عملیات</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@item.Name</td>
+                                <td>@item.PercentOfDominance</td>
+
+                                <td style="font-size:x-large">
+
+                                    <a onclick="Delbtn(@item.Id)" @*href="/Admin/skill/Delete/@item.Id"*@ class="label label-danger"><i class="fa fa-trash-o"></i></a>
+                                    <a onclick="Editbtn(@item.Id)" @*href="/Admin/skill/Edit/@item.Id"*@ class="label label-warning"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function Delbtn(id) {
+            console.log("Start");
+            $.ajax({
+                type: "Get",
+                url: "/Admin/skill/Delete/" + id,
+                success: function (response) {
+                    $('#ModalBody').html(response);
+                }
+            });
+            $('#MyModal').modal();
+        }
+
+        function Editbtn(id) {
+            console.log("Start");
+            $.ajax({
+                type: "Get",
+                url: "/Admin/skill/Edit/" + id,
+                success: function (response) {
+                    $('#ModalBody').html(response);
+                }
+            });
+            $('#MyModal').modal();
+        }
+    </script>
+}

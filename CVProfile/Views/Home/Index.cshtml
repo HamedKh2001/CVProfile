@@ -1,0 +1,272 @@
+﻿@{
+    ViewData["Title"] = "Hamed-Khorasani";
+    @using CoreLayer.IServices;
+    @using CoreLayer.Utilities;
+    @inject IGenericRepository<DataLayer.Entities.Skill> _genericRepository
+    @inject IOwnerService _OwnerRepository
+    var owner = _OwnerRepository.GetActiveProfile().Result;
+}
+
+<div class="page-content">
+    <div>
+        <div class="profile-page">
+            <div class="wrapper">
+                <div class="page-header page-header-small" filter-color="green">
+                    <div class="page-header-image" data-parallax="true" style="background-image: url('images/Code.JPG')"></div>
+                    <div class="container">
+                        <div class="content-center">
+                            <div class="cc-profile-image"><a href="#"><img src="@(RootFile.ReadUserPhoto+owner.ProfilePhoto)" alt="Image" /></a></div>
+                            <div class="h2 title">@owner.FullName</div>
+                            <a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">سفارش پروژه</a>
+                            <a class="btn btn-primary" href="https://github.com/comradow" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">گیت هاب</a>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="container">
+                            <div class="button-container">
+                                <a class="btn btn-default btn-round btn-lg btn-icon" href="https://t.me/this_ishamed" rel="tooltip" title="تلگرام"><i class="fa fa-telegram"></i></a>
+                                <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/hamed_dotnet" rel="tooltip" title="اینستاگرام"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="about">
+            <div class="container">
+                <div class="card" data-aos="fade-up" data-aos-offset="10">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card-body">
+                                <p class="h4 mt-0 title">دربـاره مـن </p>
+                                <p>@Html.Raw(owner.About)</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <p class="col-sm-4"><strong class="text-uppercase">ســن :</strong></p>
+                                    <p class="col-sm-8">@((DateTime.Now.Year - owner.BirthDate.Year))</p>
+                                </div>
+                                <div class="row mt-3">
+                                    <p class="col-sm-4"><strong class="text-uppercase">ایـمـیـل:</strong></p>
+                                    <p class="col-sm-8">@owner.Email</p>
+                                </div>
+                                <div class="row mt-3">
+                                    <p class="col-sm-4"><strong class="text-uppercase">شــمــاره:</strong></p>
+                                    <p class="col-sm-8">@owner.Phonenumber</p>
+                                </div>
+                                <div class="row mt-3">
+                                    <p class="col-sm-4"><strong class="text-uppercase">شـهـر:</strong></p>
+                                    <p class="col-sm-8">@owner.City</p>
+                                </div>
+                                <div class="row mt-3">
+                                    <p class="col-sm-4"><strong class="text-uppercase">زبـان:</strong></p>
+                                    <p class="col-sm-8">@owner.Languages</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="skill">
+            <div class="container">
+                <div class="h4 text-center mb-4 title">مــهــارت هــا</div>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var skill in _genericRepository.GetAll())
+                            {
+                                <div class="col-md-6">
+                                    <div class="progress-container progress-primary">
+                                        <p style="text-align:left" class="progress-badge">@skill.Name</p>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10" data-aos-duration="2000" role="progressbar" aria-valuenow="@skill.PercentOfDominance" aria-valuemin="0" aria-valuemax="100" style="width: @(skill.PercentOfDominance+"%");"></div><span class="progress-value">@skill.PercentOfDominance%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="experience">
+            <div class="container cc-experience">
+                <div class="h4 text-center mb-4 title">تـجـارب کـاری</div>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+                            <div class="card-body cc-experience-header">
+                                <p>اردیبهشت 1400 - حال</p>
+                                <div class="h5">فری لنسر</div>
+                            </div>
+                        </div>
+                        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+                            <div class="card-body">
+                                <div class="h5">برنامه نویس بک اند</div>
+                                <p>...در حال کامل شدن</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="section" id="reference">
+            <div class="container cc-reference">
+            <div class="h4 mb-4 text-center title">References</div>
+            <div class="card" data-aos="zoom-in">
+            <div class="carousel slide" id="cc-Indicators" data-ride="carousel">
+            <ol class="carousel-indicators">
+            <li class="active" data-target="#cc-Indicators" data-slide-to="0"></li>
+            <li data-target="#cc-Indicators" data-slide-to="1"></li>
+            <li data-target="#cc-Indicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+            <div class="row">
+            <div class="col-lg-2 col-md-3 cc-reference-header">
+            <img src="images/reference-image-1.jpg" alt="Image" />
+            <div class="h5 pt-2">Aiyana</div>
+            <p class="category">CEO / WEBM</p>
+            </div>
+            <div class="col-lg-10 col-md-9">
+            <p> Habitasse venenatis commodo tempor eleifend arcu sociis sollicitudin ante pulvinar ad, est porta cras erat ullamcorper volutpat metus duis platea convallis, tortor primis ac quisque etiam luctus nisl nullam fames. Ligula purus suscipit tempus nascetur curabitur donec nam ullamcorper, laoreet nullam mauris dui aptent facilisis neque elementum ac, risus semper felis parturient fringilla rhoncus eleifend.</p>
+            </div>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div class="row">
+            <div class="col-lg-2 col-md-3 cc-reference-header">
+            <img src="images/reference-image-2.jpg" alt="Image" />
+            <div class="h5 pt-2">Braiden</div>
+            <p class="category">CEO / Creativem</p>
+            </div>
+            <div class="col-lg-10 col-md-9">
+            <p> Habitasse venenatis commodo tempor eleifend arcu sociis sollicitudin ante pulvinar ad, est porta cras erat ullamcorper volutpat metus duis platea convallis, tortor primis ac quisque etiam luctus nisl nullam fames. Ligula purus suscipit tempus nascetur curabitur donec nam ullamcorper, laoreet nullam mauris dui aptent facilisis neque elementum ac, risus semper felis parturient fringilla rhoncus eleifend.</p>
+            </div>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div class="row">
+            <div class="col-lg-2 col-md-3 cc-reference-header">
+            <img src="images/reference-image-3.jpg" alt="Image" />
+            <div class="h5 pt-2">Alexander</div>
+            <p class="category">CEO / Webnote</p>
+            </div>
+            <div class="col-lg-10 col-md-9">
+            <p> Habitasse venenatis commodo tempor eleifend arcu sociis sollicitudin ante pulvinar ad, est porta cras erat ullamcorper volutpat metus duis platea convallis, tortor primis ac quisque etiam luctus nisl nullam fames. Ligula purus suscipit tempus nascetur curabitur donec nam ullamcorper, laoreet nullam mauris dui aptent facilisis neque elementum ac, risus semper felis parturient fringilla rhoncus eleifend.</p>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>*@
+        <div class="section" id="contact">
+            <div class="cc-contact-information" style="background-image: url('images/staticmap.png')">
+                <div class="container">
+                    <div class="cc-contact">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="card mb-0" data-aos="zoom-in">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="h4 text-center title"><p>ارتـبـاط بـا مـن</p></div>
+                                        <form asp-action="InsertOrder" asp-controller="Contact" id="contactForm" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input name="Subject" class="form-control" type="text" placeholder="عنوان" required="required" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <p class="text-black-50">فایل پیوست</p>
+                                                                <input class="form-control" name="File" type="file" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="text" name="Email" placeholder="ایمـیـل" required="required" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <textarea class="form-control" name="ContactText" placeholder="پـیـام شـمـا" required="required"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div class="g-recaptcha" data-sitekey="6Lf0KvkdAAAAAFtpIjMOTUUXXznahHIF1xEYK7OB"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button style="text-align:center;max-width:50%" class="btn btn-lg btn-primary" type="submit">ارسـال</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <div style="text-align:center" class="alert alert-success" role="alert">
+                                           <span>بـرای ارسـال پـیـام بـایـد ابـتـدا <a href="/register/login" class="alert-link">وارد سـایـت</a> شـویـد</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script>
+    $('#contactForm').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);;
+        $.ajax({
+            type: "POST",
+            url: "/Contact/InsertOrder",
+            data: formData,
+            success: function (response) {
+                if (response.status === 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.message,
+                    })
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+</script>
+}
