@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <TypeScriptModuleKind>umd</TypeScriptModuleKind>
   </PropertyGroup>
 
   <ItemGroup>
@@ -2302,6 +2303,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
       <PrivateAssets>all</PrivateAssets>
@@ -7642,7 +7644,27 @@
     <None Include="wwwroot\Admin\bower_components\tinymce\themes\modern\theme.min.js" />
     <None Include="wwwroot\Admin\bower_components\tinymce\tinymce.min.js" />
     <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.core.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.core.min.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.fp.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.fp.min.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.js" />
+    <None Include="wwwroot\lib\lodash.js\lodash.min.js" />
+    <None Include="wwwroot\lib\lodash.js\mapping.fp.js" />
+    <None Include="wwwroot\lib\signalr\dist\browser\signalr.js" />
+    <None Include="wwwroot\lib\signalr\dist\browser\signalr.js.map" />
+    <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js" />
+    <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js.map" />
     <None Include="wwwroot\scripts\main.js" />
+    <None Include="wwwroot\lib\vue\vue.common.js" />
+    <None Include="wwwroot\lib\vue\vue.esm.browser.js" />
+    <None Include="wwwroot\lib\vue\vue.esm.js" />
+    <None Include="wwwroot\lib\vue\vue.js" />
+    <None Include="wwwroot\lib\vue\vue.min.js" />
+    <None Include="wwwroot\lib\vue\vue.runtime.common.js" />
+    <None Include="wwwroot\lib\vue\vue.runtime.esm.js" />
+    <None Include="wwwroot\lib\vue\vue.runtime.js" />
+    <None Include="wwwroot\lib\vue\vue.runtime.min.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,35 +11,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoreLayer.Services
 {
 	public class OrderService : IOrderService
 	{
-		private readonly IFileManager _fileManager;
 		private readonly CVContext _context;
-		public OrderService(IFileManager fileManager, CVContext context)
+		private readonly IFileManager _fileManager;
+		public OrderService(CVContext context, IFileManager fileManager)
 		{
 			_context = context;
 			_fileManager = fileManager;
 		}
-		public OperationResault InsertOrder(ContactDto contactDto,ClaimsPrincipal principal)
+		public async Task<OperationResault> InsertOrderasync(ContactDto contactDto, ClaimsPrincipal principal, CancellationToken cancellationToken)
 		{
 			try
 			{
-				var x = Convert.ToInt32(principal.Claims.ToArray()[3].Value);
-				var filename = _fileManager.SaveFile(contactDto.File, RootFile.InsertOrderFile);
+				string fileName = null;
+				if (contactDto.File != null)
+				{
+					fileName = await _fileManager.SaveProgress(contactDto.File, RootFile.InsertOrderFile, cancellationToken);
+				}
 				var order = new Contact()
 				{
 					ContactText = contactDto.ContactText,
 					Email = contactDto.Email,
 					UserID = Convert.ToInt32(principal.Claims.ToArray()[3].Value),
 					Subject = contactDto.Subject,
-					FileName = filename
+					FileName = fileName,
 				};
-				_context.Contacts.Add(order);
-				_context.SaveChanges();
+				await _context.Contacts.AddAsync(order, cancellationToken);
+				await _context.SaveChangesAsync(cancellationToken);
 				return OperationResault.Success();
 			}
 			catch (Exception ex)
