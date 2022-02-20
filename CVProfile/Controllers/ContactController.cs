@@ -42,8 +42,6 @@ namespace CVProfile.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-					//var cancellationToken = new CancellationTokenSource();
-					//cancellationToken.CancelAfter(60000);
 					return new JsonResult(_orderService.InsertOrderasync(contactDto,User, cancellationToken).Result);
 				}
 				return new JsonResult(OperationResault.Error("فیلد ها را وارد کنید"));
