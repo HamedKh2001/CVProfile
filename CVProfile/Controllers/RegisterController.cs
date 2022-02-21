@@ -108,7 +108,7 @@ namespace CVProfile.Controllers
 						Role = Person.Roles.User
 					};
 
-					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, newRand);
+					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, "کد فعالسازی شما :" + newRand);
 					if (smsResault.Status == OperationResultStatus.Error)
 					{
 						ModelState.AddModelError("PhoneNumber", smsResault.Message);
@@ -162,6 +162,18 @@ namespace CVProfile.Controllers
 			if (user != null)
 				return new JsonResult(_sms.SendSMS(phonenumber, user.ActivateCode));
 			return new JsonResult(OperationResault.Error("کاربری یافت نشد"));
+		}
+
+		[HttpPost]
+		public IActionResult ForgetPassword(string phonenumber)
+		{
+			var res = _userService.RecoverUser(phonenumber);
+			var smsRes = _sms.SendSMS(phonenumber, res.Message);
+			if (res.Status == OperationResultStatus.Success && smsRes.Status == OperationResultStatus.Success)
+				return new JsonResult(OperationResault.Success("رمز عبور جدید با موفقیت ارسال شد"));
+			if (smsRes.Status != OperationResultStatus.Success)
+				return new JsonResult(res);
+			return new JsonResult(res);
 		}
 	}
 }

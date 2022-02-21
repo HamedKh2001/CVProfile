@@ -31,12 +31,12 @@
                 </span>
             </div>
             <div style="text-align:center" class="wrap-input100 validate-input">
-                <button id="enablebtn" onclick="sendbtn()" type="button" class="btn btn-success ">ارسال مجدد کد فعالسازی</button>
-                <p id="timer"></p>
+                @*<button id="enablebtn" onclick="sendbtn()" type="button" class="btn btn-success ">ارسال مجدد کد فعالسازی</button>*@
+                
             </div>
 
             <div style="text-align:right" class="wrap-input100 validate-input col-md-12">
-                <label asp-for="RememberMe" class="form-check-label text-nowrap col-md-6"></label>
+                <label style="font-size:x-small" asp-for="RememberMe" class="form-check-label text-nowrap col-md-6"></label>
                 <input style="left: 80px" asp-for="RememberMe" class="form-check-input col-md-6" type="checkbox" />
 
             </div>
@@ -52,7 +52,11 @@
                 </span>
                 <a class="txt2" href="/register/signup">
                     ثبت نام
-                </a>
+                </a><br />
+                <button class="txt2" id="enablebtn" onclick="sendbtn()">
+                    فراموشی رمز عبور
+                </button>
+                <p id="timer"></p>
             </div>
 
         </form>
@@ -100,10 +104,9 @@
                 });
             }
             else {
-                console.log(phonenumber);
                 $.ajax({
                     type: "POST",
-                    url: "/register/ResendSms/",
+                    url: "/register/ForgetPassword/",
                     data: "phonenumber=" + phonenumber,
                     success: function (response) {
                         if (response.status === 200) {

@@ -16,5 +16,6 @@ namespace CoreLayer.IServices
 		UserDto ValideUser(string phonenumber,string PassWord);
 		OperationResault ActivateUser(string phonenumber, string ActivateCode);
 		User GetUserByphoneNumber(string phonenumber);
+		OperationResault RecoverUser(string phonenumber);
 	}
 }

@@ -82,6 +82,26 @@ namespace CoreLayer.Services
 			//};
 		}
 
-
+		/// <summary>
+		/// Success.Message = New PassWord
+		/// </summary>
+		/// <param name="phonenumber"></param>
+		/// <returns></returns>
+		public OperationResault RecoverUser(string phonenumber)
+		{
+			var guid = Guid.NewGuid(); ;
+			var newPass = guid.ToString().Split('-').First();
+			var user = GetUserByphoneNumber(phonenumber);
+			user.PassWord = newPass.EncodeToMd5();
+			var res = _genericRepository.Update(user);
+			if (res.Status == OperationResultStatus.Success)
+			{
+				res.Message = $"رمز عبور جدید شما : {newPass} ";
+				return res;
+			}
+			if (user == null)
+				return OperationResault.NotFound("شماره مورد نظر موجود نیست");
+			return OperationResault.Error();
+		}
 	}
 }

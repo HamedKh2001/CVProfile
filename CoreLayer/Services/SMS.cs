@@ -17,9 +17,8 @@ namespace CoreLayer.Services
 			{
 				var sender = "1000596446";
 				var receptor = PhoneNumber;
-				var message = "کد فعالسازی شما :" + Text;
 				var api = new KavenegarApi("386C577978465736345065515A695439436849684455713550623668744F3139684E4B2B644930472F48773D");
-				var x = api.Send(sender, receptor, message);
+				var x = api.Send(sender, receptor, Text);
 				return OperationResault.Success();
 			}
 			catch (Exception ex)

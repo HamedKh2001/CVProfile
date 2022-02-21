@@ -177,15 +177,15 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <div class="h4 text-center title"><p> ارتـبـاط بـا مــن و ارسال سـفـارش پروژه شما</p></div>
-             <div class="alert alert-success alert-dismissible" role="alert">
-  حتما جزئیات پروژه خود را در <strong> قالب فایل</strong> ارسال کنید
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            حتما جزئیات پروژه را در <strong> قالب فایل</strong> ارسال کنید
+                                            <button style="text-align:left" type="button" class="close pu" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-</div>
+                                        </div>
                                         <form asp-action="InsertOrder" asp-controller="Contact" id="contactForm" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="card-body">
+                                                    <div class="custom-card-body">
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <input name="Subject" class="form-control" type="text" placeholder="عنوان" required="required" />
@@ -194,7 +194,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="card-body">
+                                                    <div class="custom-card-body">
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <input class="form-control" type="text" name="Email" placeholder="ایمـیـل" required="required" />
@@ -206,7 +206,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="card-body">
+                                                    <div class="custom-card-body">
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <div class="input-group">
@@ -217,15 +217,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="card-body">
+                                                    <div class="custom-card-body">
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <div class="input-group">
-                                                                    <div id="app">
-                                                                        <input class="form-control" type="file" name="file" id="file" ref="uploads" v-on:change="fileSelected" />
-                                                                        <div class="card">
+                                                                    <div class="form-control" id="app">
+                                                                        <input class="" type="file" name="file" id="file" ref="uploads" v-on:change="fileSelected" />
+                                                                        <div style="max-height:80%;text-align:center" class="@*card*@"> <br />
                                                                             <ul class="list-group list-group-flush">
-                                                                                <li class="list-group-item" v-for="(file) in fileList">
+                                                                                <li id="fileLi" class="list-group-item form-control" v-for="(file) in fileList">
                                                                                     {{file.name}} |
                                                                                     <strong>
                                                                                         {{(file.size/(1024*1024)) | roundme}}  MB
@@ -246,7 +246,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="card-body">
+                                                    <div class="custom-card-body">
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <div class="input-group">
@@ -285,34 +285,36 @@
 @section scripts
 {
 <script>
-      $('#contactForm').submit(function (e) {
-          e.preventDefault();
-          var formData = new FormData(this);;
-          $.ajax({
-              type: "POST",
-              url: "/Contact/InsertOrder",
-              data: formData,
-              success: function (response) {
-                  if (response.status === 200) {
-                      Swal.fire({
-                          icon: 'success',
-                          title: response.message,
-                      })
-                  }
-                  else {
-                      Swal.fire({
-                          icon: 'error',
-                          title: response.message,
-                      })
-                  }
-              },
-              cache: false,
-              contentType: false,
-              processData: false
-          });
-      });
+    $('#contactForm').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);;
+        $.ajax({
+            type: "POST",
+            url: "/Contact/InsertOrder",
+            data: formData,
+            success: function (response) {
+                if (response.status === 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.message,
+                    })
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
 </script>
 <script>
+     
+
 
     Vue.filter('roundme', function (value) {
         if (!value) return ''
@@ -331,9 +333,11 @@
             connection: null
         },
         methods: {
+            
             fileSelected: function () {
-                var vm = this;
 
+                var vm = this;
+                
                 var selectedfiles = this.$refs.uploads.files;
 
                 for (var i = 0; i < selectedfiles.length; i++) {
@@ -349,8 +353,13 @@
             }
         },
         mounted: function () {
+            $('#file').change(function (e) { 
+            if($(this).val()!=null){
+                $("#fileLi").remove();
+            }
+        });
             var vm = this;
-
+            
             vm.connection = new signalR.HubConnectionBuilder()
                 .withUrl('/UploadHub')
                 .configureLogging(signalR.LogLevel.Information)
@@ -360,7 +369,7 @@
                 .catch(function (err) {
                     return console.error(err.toSting());
                 });
-
+                
             vm.connection.on('sendProgress', function (fileName, progress) {
 
                 var fileIndex = _.findIndex(vm.fileList, function (o) { return o.name == fileName; });
