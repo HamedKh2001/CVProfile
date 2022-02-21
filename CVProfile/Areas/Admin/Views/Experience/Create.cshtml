@@ -1,0 +1,40 @@
+﻿@model DataLayer.Entities.WorkExperience
+@{
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">افزودن تجربه جدید</h3>
+    </div>
+    <form role="form" method="post" asp-area="Admin" asp-controller="Experience" asp-action="Create">
+        <div class="box-body">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="FromDate"></label>
+                    <input asp-for="FromDate" class="form-control" />
+                    <span asp-validation-for="FromDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ToDate"></label>
+                    <input asp-for="ToDate" class="form-control" />
+                    <span asp-validation-for="ToDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="Text"></label>
+                    <textarea asp-for="Text" class="form-control" ></textarea>
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div style="position:center" class="box-footer">
+            <button type="submit" class="btn btn-success btn-lg" style="min-width:150px">ثــبــت</button>
+        </div>
+    </form>
+</div>

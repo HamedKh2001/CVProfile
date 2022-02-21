@@ -18,13 +18,15 @@ namespace CVProfile.Areas.Admin.Controllers
 	public class OwnerController : Controller
 	{
 		private readonly IOwnerService _ownerService;
-		public OwnerController(IOwnerService ownerService)
+		private readonly IGenericRepository<Owner> _ownergenericRepository;
+		public OwnerController(IOwnerService ownerService, IGenericRepository<Owner> ownergenericRepository)
 		{
 			_ownerService = ownerService;
+			_ownergenericRepository = ownergenericRepository;
 		}
 		public IActionResult Index()
 		{
-			return View();
+			return View(_ownergenericRepository.GetAll().ToList());
 		}
 
 		public IActionResult Create()
@@ -35,12 +37,28 @@ namespace CVProfile.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult Create(InsertOwnerDto insertOwnerDto)
 		{
-			var res = _ownerService.Insert(insertOwnerDto).Result;
+			var res = _ownerService.Insertasync(insertOwnerDto).Result;
 			if (res.Status == OperationResultStatus.Success)
 				return Redirect("/Admin");
 			ModelState.AddModelError("FullName", res.Message);
 			return View(insertOwnerDto);
 		}
 
+		public IActionResult Edit(int id)
+		{
+			return View(_ownerService.GetProfileasync(id).Result);
+		}
+		[HttpPost]
+		public IActionResult Edit(InsertOwnerDto insertOwnerDto)
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult ChangeStatus(int id)
+		{
+			var res = _ownerService.ChangeStatusProfile(id).Result;
+			return new JsonResult(res);
+		}
 	}
 }

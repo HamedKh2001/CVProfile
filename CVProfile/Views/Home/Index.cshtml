@@ -181,7 +181,7 @@
                                             حتما جزئیات پروژه را در <strong> قالب فایل</strong> ارسال کنید
                                             <button style="text-align:left" type="button" class="close pu" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                                        </div>
+                                        </div><br />
                                         <form asp-action="InsertOrder" asp-controller="Contact" id="contactForm" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -223,7 +223,8 @@
                                                                 <div class="input-group">
                                                                     <div class="form-control" id="app">
                                                                         <input class="" type="file" name="file" id="file" ref="uploads" v-on:change="fileSelected" />
-                                                                        <div style="max-height:80%;text-align:center" class="@*card*@"> <br />
+                                                                        <div style="max-height:80%;text-align:center" class="@*card*@">
+                                                                            <br />
                                                                             <ul class="list-group list-group-flush">
                                                                                 <li id="fileLi" class="list-group-item form-control" v-for="(file) in fileList">
                                                                                     {{file.name}} |
@@ -297,7 +298,9 @@
                     Swal.fire({
                         icon: 'success',
                         title: response.message,
-                    })
+                    }).then((result) => {
+                            location.reload();
+                        })
                 }
                 else {
                     Swal.fire({
@@ -313,7 +316,7 @@
     });
 </script>
 <script>
-     
+
 
 
     Vue.filter('roundme', function (value) {
@@ -333,11 +336,11 @@
             connection: null
         },
         methods: {
-            
+
             fileSelected: function () {
 
                 var vm = this;
-                
+
                 var selectedfiles = this.$refs.uploads.files;
 
                 for (var i = 0; i < selectedfiles.length; i++) {
@@ -353,13 +356,13 @@
             }
         },
         mounted: function () {
-            $('#file').change(function (e) { 
+            $('#file').change(function (e) {
             if($(this).val()!=null){
                 $("#fileLi").remove();
             }
         });
             var vm = this;
-            
+
             vm.connection = new signalR.HubConnectionBuilder()
                 .withUrl('/UploadHub')
                 .configureLogging(signalR.LogLevel.Information)
@@ -369,7 +372,7 @@
                 .catch(function (err) {
                     return console.error(err.toSting());
                 });
-                
+
             vm.connection.on('sendProgress', function (fileName, progress) {
 
                 var fileIndex = _.findIndex(vm.fileList, function (o) { return o.name == fileName; });

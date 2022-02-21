@@ -1,0 +1,71 @@
+﻿@model CoreLayer.Dtos.InsertOwnerDto
+@{
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">افزودن پروفایل جدید</h3>
+    </div>
+    <form role="form" method="post" asp-area="Admin" asp-controller="Owner" asp-action="Edit" enctype="multipart/form-data">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Languages"></label>
+                    <input asp-for="Languages" class="form-control" />
+                    <span asp-validation-for="Languages" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Phonenumber"></label>
+                    <input asp-for="Phonenumber" class="form-control" />
+                    <span asp-validation-for="Phonenumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label asp-for="About" class="control-label"></label>
+                    <textarea id="Ckeditor" asp-for="About" class="form-control"></textarea>
+                    <span asp-validation-for="About" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="BirthDate" class="control-label"></label>
+                    <input asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ProfilePhoto" class="control-label"></label>
+                    <input asp-for="ProfilePhoto" class="form-control" />
+                    <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div style="position:center" class="box-footer">
+            <button type="submit" class="btn btn-success btn-lg" style="min-width:150px">ثــبــت</button>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script src="~/ckeditor4/customCK.js"></script>
+}

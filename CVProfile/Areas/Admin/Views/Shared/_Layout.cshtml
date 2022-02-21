@@ -324,7 +324,7 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">منو</li>
                     <li>
-                        <a href="/admin/Skill/index">
+                        <a href="/admin">
                             <i class="fa fa-dashboard"></i> <span>داشبرد</span>
                         </a>
                     </li>
@@ -334,6 +334,11 @@
                             <span class="pull-left-container">
                                 <small class="label pull-left bg-green">جدید</small>
                             </span>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="/admin/experience/index">
+                            <i class="fa fa-hourglass-half"></i> <span>تجارب</span>
                         </a>
                     </li> 
                      <li class="active treeview">
@@ -593,6 +598,7 @@
     <script src="/Admin/dist/js/pages/dashboard2.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/Admin/dist/js/demo.js"></script>
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

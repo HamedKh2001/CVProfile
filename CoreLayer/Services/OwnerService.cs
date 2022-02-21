@@ -30,7 +30,7 @@ namespace CoreLayer.Services
 			_genericRepository = genericRepository;
 			_context = context;
 		}
-		public async Task<OperationResault> Insert(InsertOwnerDto insertOwnerDto)
+		public async Task<OperationResault> Insertasync(InsertOwnerDto insertOwnerDto)
 		{
 			try
 			{
@@ -71,5 +71,22 @@ namespace CoreLayer.Services
         {
 			return await _genericRepository.GetAll().Select(o=>o.ToOwnerDto()).ToListAsync();
 		}
-    }
+
+		public async Task<OwnerDto> GetProfileasync(int id)
+        {
+			var owner =await _genericRepository.Getasync(id);
+			return owner.ToOwnerDto();
+		}
+
+		public async Task<OperationResault> ChangeStatusProfile(int id)
+		{
+			var owner = await _genericRepository.Getasync(id);
+            if (owner.IsActive)
+				owner.IsActive = false;
+			else
+				owner.IsActive = true;
+			var res = _genericRepository.Update(owner);
+			return res;
+		}
+	}
 }

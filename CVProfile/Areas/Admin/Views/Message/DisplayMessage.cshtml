@@ -7,35 +7,35 @@
     <div class="box-header with-border">
         <h3 class="box-title">پـیـام از <span class="text-info">@Model.User.FullName</span></h3>
     </div>
-    <form role="form" method="post" asp-area="Admin" asp-controller="Owner" asp-action="Create">
+    <form role="form" method="post" asp-area="Admin" asp-controller="Message" asp-action="Delete">
         <div class="box-body">
 
             <div class="row">
                 <div class="form-group col-md-6">
-                       <label asp-for="Subject"></label>
-                    <input asp-for="Subject" class="form-control" disabled/>
+                    <label asp-for="Subject"></label>
+                    <input asp-for="Subject" class="form-control" disabled />
                 </div>
                 <div class="form-group col-md-6">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" disabled/>
+                    <input asp-for="Email" class="form-control" disabled />
                 </div>
             </div>
             <div class="row">
-                  <div class="form-group col-md-3">
+                <div class="form-group col-md-3">
                     <label asp-for="User.FullName" class="control-label"></label>
-                    <input asp-for="User.FullName" class="form-control" disabled/>
+                    <input asp-for="User.FullName" class="form-control" disabled />
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="CreationDate"></label>
-                    <input value="@Model.CreationDate.ToShamsi()  @Model.CreationDate.ToShamsiDay()  @Model.CreationDate.ToShortTimeString()" class="form-control" disabled/>
+                    <input value="@Model.CreationDate.ToShamsi()  @Model.CreationDate.ToShamsiDay()  @Model.CreationDate.ToShortTimeString()" class="form-control" disabled />
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="Lvl" class="control-label"></label>
-                    <input asp-for="Lvl" class="form-control" disabled/>
-                </div> 
+                    <input asp-for="Lvl" class="form-control" disabled />
+                </div>
                 <div class="form-group col-md-3">
                     <label asp-for="User.Phonenumber" class="control-label"></label>
-                    <input asp-for="User.Phonenumber" class="form-control" disabled/>
+                    <input asp-for="User.Phonenumber" class="form-control" disabled />
                 </div>
             </div>
             <div class="row">
@@ -46,11 +46,39 @@
             </div>
         </div>
         <div style="position:center" class="box-footer">
-            <button type="submit" class="btn btn-danger btn-lg" style="min-width:150px">حـــذف</button>
+            <button onclick="Delbtn()" type="button" class="btn btn-danger btn-lg" style="min-width:150px">حـــذف</button>
         </div>
     </form>
+
 </div>
 
-@section scripts
+@section Scripts
 {
+<script>
+      function Delbtn() {
+           var id = location.href.split('/')[6];
+          $.ajax({
+              type: "Post",
+              url: "/Admin/Message/Delete/",
+              data:"id="+id,
+              success: function (response) {
+                   if (response.status === 200) {
+                  Swal.fire({
+                      icon: 'success',
+                      title: response.message,
+                  }).then((result) => {
+                            location.href = '/admin/Message';
+                        })
+                   }
+          
+              else {
+                  Swal.fire({
+                      icon: 'error',
+                      title: response.message,
+                  })
+              }
+              }
+          });
+      }
+</script>
 }

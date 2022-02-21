@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities;
+﻿using CORETest.Utilities;
+using DataLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace CoreLayer.IServices
 	{
 		Task<List<Contact>> GetAll();
 		Task<Contact> Get(int Id);
+		Task<OperationResault> Delete(int id);
 	}
 }

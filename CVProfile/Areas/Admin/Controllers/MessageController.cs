@@ -1,4 +1,6 @@
 ﻿using CoreLayer.IServices;
+using CORETest.Utilities;
+using DataLayer.Entities;
 using DataLayer.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +23,11 @@ namespace CVProfile.Areas.Admin.Controllers
 			return View(_messageService.GetAll().Result);
 		}
 		
-		[HttpGet]
+		[HttpPost]
 		public IActionResult Delete(int id)
 		{
-			return View();
+			var res= _messageService.Delete(id).Result;
+			return new JsonResult(res);
 		}
 
 		[HttpGet]

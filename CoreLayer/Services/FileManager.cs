@@ -59,7 +59,13 @@ namespace CoreLayer.Services.FileManager
 		{
 			try
 			{
-				File.Delete(filePath + fileName);
+				if (filePath.StartsWith('/'))
+				{
+					filePath = filePath.Substring(1, filePath.Length - 1);
+				}
+				var folderpath = Path.Combine(Directory.GetCurrentDirectory(), filePath.Replace("/", "\\"));
+				var fullpath = Path.Combine(folderpath, fileName);
+				File.Delete(folderpath + fileName);
 				return OperationResault.Success();
 			}
 			catch (Exception ex)

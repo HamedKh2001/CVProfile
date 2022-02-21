@@ -25,5 +25,5 @@ namespace CoreLayer.Mappers
 				ProfilePhoto = owner.ProfilePhoto,
 			};
 		}
-    }
+	}
 }

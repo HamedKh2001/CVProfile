@@ -7,8 +7,10 @@ namespace CoreLayer.IServices
 {
     public interface IOwnerService
     {
-        Task<OperationResault> Insert(InsertOwnerDto insertOwnerDto);
+        Task<OperationResault> Insertasync(InsertOwnerDto insertOwnerDto);
         Task<OwnerDto> GetActiveProfile();
         Task<List<OwnerDto>> GetallProfile();
+        Task<OwnerDto> GetProfileasync(int id);
+        Task<OperationResault> ChangeStatusProfile(int id);
     }
 }
