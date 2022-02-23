@@ -56,7 +56,7 @@ namespace CVProfile
 			services.AddSignalR();
 			services.AddSession(options =>
 			{
-				options.IdleTimeout = TimeSpan.FromMinutes(3);
+				options.IdleTimeout = TimeSpan.FromMinutes(5);
 			});
 		}
 

@@ -2,7 +2,11 @@
 @{
     @using CoreLayer.Utilities;
 }
-
+<style>
+.image {
+ max-width:70%;
+}
+</style>
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">پـیـام از <span class="text-info">@Model.User.FullName</span></h3>
@@ -39,9 +43,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-10">
                     <label asp-for="ContactText" class="control-label"></label>
                     <textarea style="max-width:fit-content" asp-for="ContactText" class="form-control" disabled></textarea>
+                </div>  
+                <div class="form-group col-md-2">
+                    <label asp-for="FileName" class="control-label"></label>
+                    <a class="thumbnail image" href="@CoreLayer.Utilities.RootFile.ReadOrderFile@Model.FileName"><img src="~/images/download.jfif" /></a>
                 </div>
             </div>
         </div>

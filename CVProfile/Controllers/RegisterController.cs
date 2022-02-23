@@ -19,6 +19,7 @@ namespace CVProfile.Controllers
 {
 	public class RegisterController : Controller
 	{
+		#region DI
 		private IFileManager _fileManager;
 		private readonly IUserService _userService;
 		private readonly ISMS _sms;
@@ -31,10 +32,10 @@ namespace CVProfile.Controllers
 			_sms = sms;
 			_recaptcha = recaptcha;
 		}
+		#endregion
 
 		public IActionResult Login()
 		{
-
 			return View();
 		}
 
@@ -49,7 +50,7 @@ namespace CVProfile.Controllers
 			if (user == null)
 			{
 				ModelState.AddModelError("PhoneNumber", "نام کاربری یا رمز عبور اشتباه است");
-				return View(loginViewModel);
+				return View();
 			}
 
 			List<Claim> Claims = new List<Claim>()
@@ -159,14 +160,14 @@ namespace CVProfile.Controllers
 		[HttpPost]
 		public IActionResult ResendSms(string phonenumber)
 		{
-			//if (!IsExistSession("ReSend"))
-			//	SetResendsmsTime();
-			//else
-			//{
-			//	var remainedTime = GetResendsmsTime();
-			//	if (remainedTime < TimeSpan.FromMinutes(2))
-			//		return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
-			//}
+			if (!IsExistSession("ReSend"))
+				SetResendsmsTime();
+			else
+			{
+				var remainedTime = GetResendsmsTime();
+				if (remainedTime < TimeSpan.FromMinutes(2))
+					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
+			}
 			var user = _userService.GetUserByphoneNumber(phonenumber);
 			if (user != null)
 				return new JsonResult(_sms.SendSMS(phonenumber, user.ActivateCode).Result);
