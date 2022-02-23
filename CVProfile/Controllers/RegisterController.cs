@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CVProfile.Controllers
@@ -108,7 +109,7 @@ namespace CVProfile.Controllers
 						Role = Person.Roles.User
 					};
 
-					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, "کد فعالسازی شما :" + newRand);
+					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, "کد فعالسازی شما :" + newRand).Result;
 					if (smsResault.Status == OperationResultStatus.Error)
 					{
 						ModelState.AddModelError("PhoneNumber", smsResault.Message);
@@ -158,22 +159,55 @@ namespace CVProfile.Controllers
 		[HttpPost]
 		public IActionResult ResendSms(string phonenumber)
 		{
+			//if (!IsExistSession("ReSend"))
+			//	SetResendsmsTime();
+			//else
+			//{
+			//	var remainedTime = GetResendsmsTime();
+			//	if (remainedTime < TimeSpan.FromMinutes(2))
+			//		return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
+			//}
 			var user = _userService.GetUserByphoneNumber(phonenumber);
 			if (user != null)
-				return new JsonResult(_sms.SendSMS(phonenumber, user.ActivateCode));
+				return new JsonResult(_sms.SendSMS(phonenumber, user.ActivateCode).Result);
 			return new JsonResult(OperationResault.Error("کاربری یافت نشد"));
 		}
 
 		[HttpPost]
 		public IActionResult ForgetPassword(string phonenumber)
 		{
+			if (!IsExistSession("ReSend"))
+				SetResendsmsTime();
+			else
+			{
+				var remainedTime = GetResendsmsTime();
+				if (remainedTime < TimeSpan.FromMinutes(2))
+					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
+			}
 			var res = _userService.RecoverUser(phonenumber);
-			var smsRes = _sms.SendSMS(phonenumber, res.Message);
+			var smsRes = _sms.SendSMS(phonenumber, res.Message).Result;
 			if (res.Status == OperationResultStatus.Success && smsRes.Status == OperationResultStatus.Success)
 				return new JsonResult(OperationResault.Success("رمز عبور جدید با موفقیت ارسال شد"));
 			if (smsRes.Status != OperationResultStatus.Success)
 				return new JsonResult(res);
 			return new JsonResult(res);
+		}
+
+		private void SetResendsmsTime()
+		{
+			HttpContext.Session.Set("ReSend", Encoding.ASCII.GetBytes(DateTime.Now.TimeOfDay.ToString()));
+		}
+		private TimeSpan GetResendsmsTime()
+		{
+			byte[] array;
+			HttpContext.Session.TryGetValue("ReSend", out array);
+			var str = Convert.ToDateTime(Encoding.Default.GetString(array));
+			return DateTime.Now - str;
+		}
+		private bool IsExistSession(string key)
+		{
+			var keys = HttpContext.Session.Keys.ToList();
+			return keys.Any(k => k.Contains(key));
 		}
 	}
 }

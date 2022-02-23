@@ -9,6 +9,6 @@ namespace CoreLayer.IServices
 {
 	public interface ISMS
 	{
-		OperationResault SendSMS(string PhoneNumber,string Text);
+		Task<OperationResault> SendSMS(string PhoneNumber, string Text);
 	}
 }

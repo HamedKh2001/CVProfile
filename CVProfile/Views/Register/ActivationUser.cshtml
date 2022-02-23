@@ -26,10 +26,26 @@
                     ثــبــت
                 </button>
             </div>
-            <div class="text-center p-t-136">
+             <div class="container-login100-form-btn">
+                <button style="border-radius: 25px;" id="enablebtn" onclick="sendbtn()" type="button" class="btn btn-info btn-xs ">
+                    ارسال مجدد کد فعالسازی
+                </button>
+            </div>
+            <div class="text-center">
+             <br />   <p class="pull-right" id="timer"></p>
+            </div>
+            <div class="text-center p-t-15">
                 <a class="txt2" href="#">
-
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                </a>
+            </div>
+
+             <div class="text-center p-t-12">
+                <span class="txt1">
+                    اکانت ندارید؟
+                </span>
+                <a class="txt2" href="/register/signup">
+                    ثبت نام
                 </a>
             </div>
         </form>
@@ -66,5 +82,63 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                $(display).html(minutes + ":" + seconds);
+                if (--timer < 0) {
+                    timer = duration;
+                } 
+            }, 1000);
+        }
+
+        var now = new Date().getTime();
+        function Activatebtn() {
+            $('#enablebtn').removeAttr('disabled');
+            $('#timer').hide();
+            $('').remove();
+        }
+        function disablebtn() {
+            $('#timer').show();
+            $('#enablebtn').attr('disabled', '');
+        }
+
+        function sendbtn() {
+            var phonenumber = location.href.split('/')[4]
+                $.ajax({
+                    type: "POST",
+                    url: "/register/ResendSms/",
+                    data: "phonenumber=" + phonenumber,
+                    success: function (response) {
+                        if (response.status === 200) {
+                            disablebtn();
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message
+                            });
+                            setTimeout(Activatebtn, 61000);
+                            let time = 120,
+                                display = document.querySelector('#timer');
+                            startTimer(time, display);
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.message
+                            });
+                        }
+                    }
+                });
+            
+        };
+
     </script>
 }

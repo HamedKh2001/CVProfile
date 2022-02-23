@@ -92,6 +92,8 @@ namespace CoreLayer.Services
 			var guid = Guid.NewGuid(); ;
 			var newPass = guid.ToString().Split('-').First();
 			var user = GetUserByphoneNumber(phonenumber);
+			if (user == null)
+				return OperationResault.NotFound("شماره مورد نظر موجود نیست");
 			user.PassWord = newPass.EncodeToMd5();
 			var res = _genericRepository.Update(user);
 			if (res.Status == OperationResultStatus.Success)
@@ -99,8 +101,7 @@ namespace CoreLayer.Services
 				res.Message = $"رمز عبور جدید شما : {newPass} ";
 				return res;
 			}
-			if (user == null)
-				return OperationResault.NotFound("شماره مورد نظر موجود نیست");
+			
 			return OperationResault.Error();
 		}
 	}

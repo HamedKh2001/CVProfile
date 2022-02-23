@@ -21,7 +21,15 @@ namespace CVProfile.Controllers
 
 		public IActionResult Index()
 		{
-			var x = User;
+			//var cookie =new Microsoft.AspNetCore.Http.CookieOptions();
+			//cookie.Expires = DateTimeOffset.Now.AddSeconds(5);
+			//HttpContext.Response.Cookies.Append("ReSend","First", cookie);
+			//HttpContext.Session.Set("ReSend",Encoding.ASCII.GetBytes(DateTime.Now.TimeOfDay.ToString()));
+			//byte[] array;
+			//var res = HttpContext.Session.Keys.ToArray();
+			//var ress = HttpContext.Session.TryGetValue("ReSend",out array);
+			//var str = Convert.ToDateTime(Encoding.Default.GetString(array));
+			//var def = DateTime.Now - str;
 			return View();
 		}
 

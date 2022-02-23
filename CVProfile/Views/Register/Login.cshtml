@@ -74,7 +74,6 @@
 
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-                //display.textContent = minutes + ":" + seconds;
                 $(display).html(minutes + ":" + seconds);
                 if (--timer < 0) {
                     timer = duration;
@@ -94,8 +93,6 @@
         }
 
         function sendbtn() {
-            //disablebtn();
-            //setTimeout(Activatebtn, 3000);
             var phonenumber = $('#PhoneNumber').val();
             if (phonenumber === '') {
                 Swal.fire({
@@ -116,7 +113,7 @@
                                 title: response.message
                             });
                             setTimeout(Activatebtn, 61000);
-                            let time = 60,
+                            let time = 120,
                                 display = document.querySelector('#timer');
                             startTimer(time, display);
                         }

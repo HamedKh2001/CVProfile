@@ -103,7 +103,7 @@ namespace CoreLayer.Services.FileManager
 						totalReadBytes += readBytes;
 						progress = (int)((float)totalReadBytes / (float)totalBytes * 100.0);
 						await _uploadHub.Clients.All.SendProgress(file.FileName, progress);
-						await Task.Delay(100);
+						//await Task.Delay(100);
 					}
 				}
 			}

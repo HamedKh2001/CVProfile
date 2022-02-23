@@ -33,7 +33,7 @@ namespace CVProfile
 			services.AddDbContext<CVContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped<IFileManager, FileManager>();
-			services.AddScoped<ISMS, SMS>();
+			services.AddScoped<ISMS, SibSMS>();
 			services.AddHttpContextAccessor();
 			services.AddScoped<IRecaptcha, Recaptcha>();
 			services.AddScoped<IUserService, UserService>();
@@ -54,6 +54,10 @@ namespace CVProfile
 				option.ExpireTimeSpan = TimeSpan.FromDays(30);
 			});
 			services.AddSignalR();
+			services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(3);
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,6 +71,7 @@ namespace CVProfile
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
+			app.UseSession();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseRouting();
