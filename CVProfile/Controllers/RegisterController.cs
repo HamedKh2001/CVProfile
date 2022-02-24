@@ -165,8 +165,8 @@ namespace CVProfile.Controllers
 			else
 			{
 				var remainedTime = GetResendsmsTime();
-				if (remainedTime < TimeSpan.FromMinutes(2))
-					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
+				if (remainedTime < TimeSpan.FromMinutes(3))
+					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 3 دقیقه صبر کنید"));
 			}
 			var user = _userService.GetUserByphoneNumber(phonenumber);
 			if (user != null)
@@ -182,8 +182,8 @@ namespace CVProfile.Controllers
 			else
 			{
 				var remainedTime = GetResendsmsTime();
-				if (remainedTime < TimeSpan.FromMinutes(2))
-					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 2 دقیقه صبر کنید"));
+				if (remainedTime < TimeSpan.FromMinutes(3))
+					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 3 دقیقه صبر کنید"));
 			}
 			var res = _userService.RecoverUser(phonenumber);
 			var smsRes = _sms.SendSMS(phonenumber, res.Message).Result;

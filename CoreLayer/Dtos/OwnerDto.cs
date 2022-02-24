@@ -8,6 +8,7 @@ namespace CoreLayer.Dtos
 {
     public class OwnerDto
     {
+		public int Id { get; set; }
 		public string FullName { get; set; }
 		public string Phonenumber { get; set; }
 		public string ProfilePhoto { get; set; }

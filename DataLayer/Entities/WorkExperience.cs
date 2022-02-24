@@ -11,6 +11,6 @@ namespace DataLayer.Entities
 		public string Subject { get; set; }
 		public string Text { get; set; }
 		public DateTime FromDate { get; set; }
-		public DateTime ToDate { get; set; }
+		public DateTime? ToDate { get; set; }
 	}
 }

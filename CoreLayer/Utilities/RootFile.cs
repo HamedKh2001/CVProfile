@@ -13,5 +13,8 @@ namespace CoreLayer.Utilities
 
 		public static string ReadOrderFile { get; set; } = "/OrderFiles/";
 		public static string InsertOrderFile { get; set; } = "/wwwroot/OrderFiles/";
+		
+		public static string ReadOwnerFile { get; set; } = "/OwnerFile/";
+		public static string InsertOwnerFile { get; set; } = "/wwwroot/OwnerFile/";
 	}
 }

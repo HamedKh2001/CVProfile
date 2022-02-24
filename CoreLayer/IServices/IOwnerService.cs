@@ -12,5 +12,6 @@ namespace CoreLayer.IServices
         Task<List<OwnerDto>> GetallProfile();
         Task<OwnerDto> GetProfileasync(int id);
         Task<OperationResault> ChangeStatusProfile(int id);
+        Task<OperationResault> Editasync(EditOwnerDto editOwnerDto);
     }
 }

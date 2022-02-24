@@ -19,22 +19,25 @@ namespace CoreLayer.Services
 {
 	public class OwnerService : IOwnerService
 	{
+		#region DI
 		private IFileManager _fileManager;
 		private readonly IGenericRepository<Owner> _genericRepository;
 		private readonly IMapper _mapper;
 		private readonly CVContext _context;
-		public OwnerService(CVContext context,IFileManager fileManager, IGenericRepository<Owner> genericRepository, IMapper mapper)
+		public OwnerService(CVContext context, IFileManager fileManager, IGenericRepository<Owner> genericRepository, IMapper mapper)
 		{
 			_fileManager = fileManager;
 			_mapper = mapper;
 			_genericRepository = genericRepository;
 			_context = context;
 		}
+		#endregion
+
 		public async Task<OperationResault> Insertasync(InsertOwnerDto insertOwnerDto)
 		{
 			try
 			{
-				var photoname = _fileManager.SaveFile(insertOwnerDto.ProfilePhoto, RootFile.InsertUserPhoto);
+				var photoname = _fileManager.SaveFile(insertOwnerDto.ProfilePhoto, RootFile.InsertOwnerFile);
 				//var owner = _mapper.Map<Owner>(insertOwnerDto);
 				var owner = new Owner()
 				{
@@ -87,6 +90,22 @@ namespace CoreLayer.Services
 				owner.IsActive = true;
 			var res = _genericRepository.Update(owner);
 			return res;
+		}
+
+		public async Task<OperationResault> Editasync(EditOwnerDto editOwnerDto)
+		{
+			try
+			{
+				var filename = _fileManager.SaveFile(editOwnerDto.ProfilePhotoFile, RootFile.InsertOwnerFile);
+				var owner = editOwnerDto.ToOwner();
+				owner.ProfilePhoto = filename;
+				var updateRes = _genericRepository.Update(owner);
+				return await Task.FromResult(updateRes);
+			}
+			catch (Exception ex)
+			{
+				return OperationResault.Error(ex.Message);
+			}
 		}
 	}
 }

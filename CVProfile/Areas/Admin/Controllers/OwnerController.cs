@@ -17,6 +17,7 @@ namespace CVProfile.Areas.Admin.Controllers
 	[Authorize(Roles = "Owner")]
 	public class OwnerController : Controller
 	{
+		#region DI
 		private readonly IOwnerService _ownerService;
 		private readonly IGenericRepository<Owner> _ownergenericRepository;
 		public OwnerController(IOwnerService ownerService, IGenericRepository<Owner> ownergenericRepository)
@@ -24,6 +25,8 @@ namespace CVProfile.Areas.Admin.Controllers
 			_ownerService = ownerService;
 			_ownergenericRepository = ownergenericRepository;
 		}
+		#endregion
+
 		public IActionResult Index()
 		{
 			return View(_ownergenericRepository.GetAll().ToList());
@@ -46,12 +49,25 @@ namespace CVProfile.Areas.Admin.Controllers
 
 		public IActionResult Edit(int id)
 		{
-			return View(_ownerService.GetProfileasync(id).Result);
+			var model = _ownerService.GetProfileasync(id).Result;
+			return View(new EditOwnerDto() { 
+			About = model.About,
+			IsActive = model.IsActive,
+			BirthDate = model.BirthDate,	
+			City = model.City,
+			Email = model.Email,
+			FullName = model.FullName,
+			Id = id,
+			Languages = model.Languages,
+			Phonenumber = model.Phonenumber,
+			ProfilePhoto = model.ProfilePhoto,
+			});
 		}
 		[HttpPost]
-		public IActionResult Edit(InsertOwnerDto insertOwnerDto)
+		public IActionResult Edit(EditOwnerDto editOwnerDto)
 		{
-			return View();
+			var res = _ownerService.Editasync(editOwnerDto).Result;
+			return new JsonResult(res);
 		}
 
 		[HttpPost]

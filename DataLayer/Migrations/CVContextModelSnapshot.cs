@@ -188,7 +188,7 @@ namespace DataLayer.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ToDate")
+                    b.Property<DateTime?>("ToDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

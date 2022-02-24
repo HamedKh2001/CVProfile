@@ -14,7 +14,7 @@
                 </div>
                 <div class="col col-md-12">
                     <div style="text-align:center">
-                        <button onclick="Createbtn()" class="btn btn-success btn-lg " style="width:40%"><i class="fa fa-plus">&nbsp;افزودن پزوفایل جدید</i></button>
+                        <a href="/admin/Owner/Create" class="btn btn-success btn-lg " style="width:40%"><i class="fa fa-plus">&nbsp;افزودن پزوفایل جدید</i></a>
                     </div>
                 </div>
             </div>
@@ -34,15 +34,14 @@
                         {
                             <tr>
                                 <td>@index</td>
-                                <td><img src="@RootFile.ReadUserPhoto@item.ProfilePhoto" class="thumbnail" style="max-width:100px;max-height:150px" /></td>
+                                <td><img src="@RootFile.ReadOwnerFile@item.ProfilePhoto" class="thumbnail" style="max-width:100px;max-height:150px" /></td>
                                 <th>@item.Phonenumber</th>
                                 <th>@item.CreationDate.ToShamsi()</th>
                                 <th>
                                     <button onclick="status(@item.Id)" class="btn @(item.IsActive?"btn-success":"btn-danger")">@(item.IsActive?"فعال":"غیر فعال")</button>
                                 </th>
                                 <td>
-                                    <button class="btn btn-danger" onclick="Delbtn(@item.Id)"><i class="fa fa-trash-o"></i></button>
-                                    <button class="btn btn-warning" onclick="Editbtn(@item.Id)"><i class="fa fa-edit"></i></button>
+                                    <a class="btn btn-warning" href="/admin/owner/edit/@item.Id"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                             index++;
