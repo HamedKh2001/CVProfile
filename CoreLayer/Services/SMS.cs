@@ -1,5 +1,6 @@
 ﻿using CoreLayer.IServices;
 using CORETest.Utilities;
+using HiraSmsReference;
 using Kavenegar;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,31 @@ namespace CoreLayer.Services
 				var response = await httpClient.GetAsync(
 					$"https://www.sibsms.com/APISend.aspx?Username=09398376015&Password=1379013820&From={sender}&To={PhoneNumber}&Text={Text}");
 				var res = await response.Content.ReadAsStringAsync();
+				return OperationResault.Success();
+			}
+			catch (Exception ex)
+			{
+				return OperationResault.Error();
+			}
+		}
+	}
+	public class NiazpardazSMS : ISMS
+	{
+		public async Task<OperationResault> SendSMS(string PhoneNumber, string Text)
+		{
+			try
+			{
+				var sendServiceClient = new SendServiceClient();
+				SendBatchSmsRequest batchSmsRequest = new SendBatchSmsRequest()
+				{
+					fromNumber = "10009611 ",
+					password = "abc!379",
+					userName = "c.09398376015",
+					messageContent = Text,
+					toNumbers = new string[] { PhoneNumber }
+				};
+				var result =await sendServiceClient.SendBatchSmsAsync(batchSmsRequest);
+				var message = result.SendBatchSmsResult.ToString();
 				return OperationResault.Success();
 			}
 			catch (Exception ex)

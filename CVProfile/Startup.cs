@@ -33,7 +33,7 @@ namespace CVProfile
 			services.AddDbContext<CVContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped<IFileManager, FileManager>();
-			services.AddScoped<ISMS, SibSMS>();
+			services.AddScoped<ISMS, NiazpardazSMS>();
 			services.AddHttpContextAccessor();
 			services.AddScoped<IRecaptcha, Recaptcha>();
 			services.AddScoped<IUserService, UserService>();

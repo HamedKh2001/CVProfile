@@ -29,6 +29,8 @@
                             <div class="button-container">
                                 <a class="btn btn-default btn-round btn-lg btn-icon" href="https://t.me/this_ishamed" rel="tooltip" title="تلگرام"><i class="fa fa-telegram"></i></a>
                                 <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/hamed_dotnet" rel="tooltip" title="اینستاگرام"><i class="fa fa-instagram"></i></a>
+                                   <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/hamed-khorasani-434146233/" rel="tooltip" title="لینکدین"><i class="fa fa-linkedin-square"></i></a>
+                                   <a class="btn btn-default btn-round btn-lg btn-icon" href="https://github.com/comradow" rel="tooltip" title="گیت هاب"><i class="fa fa-github"></i></a>
                             </div>
                         </div>
                     </div>
@@ -38,17 +40,12 @@
         <div class="section" id="about">
             <div class="container">
                 <div class="card" data-aos="fade-up" data-aos-offset="10">
-                    <div class="row">
+                    <div style="direction: rtl" class="row">
+                       
                         <div class="col-lg-6 col-md-12">
-                            <div class="card-body">
-                                <p class="h4 mt-0 title">دربـاره مـن </p>
-                                <p>@Html.Raw(owner.About)</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card-body">
-                                <div class="row mt-3">
-                                    <p class="col-sm-4"><strong class="text-uppercase">ســن :</strong></p>
+                             <div class="card-body">
+                                <div class="row md-3">
+                                     <p class="col-sm-4"><strong class="text-uppercase">ســن :</strong></p>
                                     <p class="col-sm-8">@((DateTime.Now.Year - owner.BirthDate.Year))</p>
                                 </div>
                                 <div class="row mt-3">
@@ -67,6 +64,12 @@
                                     <p class="col-sm-4"><strong class="text-uppercase">زبـان:</strong></p>
                                     <p class="col-sm-8">@owner.Languages</p>
                                 </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-6 col-md-12">
+                            <div class="card-body">
+                                <p class="h4 mt-0 title">دربـاره مـن </p>
+                                <p>@Html.Raw(owner.About)</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +116,7 @@
                                 <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                                     <div class="card-body">
                                         <div class="h5">@item.Subject</div>
-                                        <p>@item.Subject</p>
+                                        <p>@item.Text</p>
                                     </div>
                                 </div>
                             </div>

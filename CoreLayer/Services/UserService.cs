@@ -98,7 +98,7 @@ namespace CoreLayer.Services
 			var res = _genericRepository.Update(user);
 			if (res.Status == OperationResultStatus.Success)
 			{
-				res.Message = $"رمز عبور جدید شما : {newPass} ";
+				res.Message = newPass;
 				return res;
 			}
 			

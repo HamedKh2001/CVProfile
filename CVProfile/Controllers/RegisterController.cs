@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CVProfile.Controllers
 {
@@ -52,7 +51,8 @@ namespace CVProfile.Controllers
 				ModelState.AddModelError("PhoneNumber", "نام کاربری یا رمز عبور اشتباه است");
 				return View();
 			}
-
+			if (!user.IsActive)
+				return Redirect($"/Activation/{loginViewModel.PhoneNumber}");
 			List<Claim> Claims = new List<Claim>()
 			{
 				new Claim(ClaimTypes.Role , user.Role.ToString()),
@@ -109,8 +109,8 @@ namespace CVProfile.Controllers
 						PassWord = signUpViewModel.PassWord,
 						Role = Person.Roles.User
 					};
-
-					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, "کد فعالسازی شما :" + newRand).Result;
+					var sms = new SMSMessages(newRand);
+					var smsResault = _sms.SendSMS(signUpViewModel.PhoneNumber, sms.SignIn).Result;
 					if (smsResault.Status == OperationResultStatus.Error)
 					{
 						ModelState.AddModelError("PhoneNumber", smsResault.Message);
@@ -133,6 +133,7 @@ namespace CVProfile.Controllers
 		{
 			return View();
 		}
+
 
 		[HttpPost("Activation/{phonenumber}")]
 		public IActionResult ActivationUser(string phonenumber, string password)
@@ -169,8 +170,9 @@ namespace CVProfile.Controllers
 					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 3 دقیقه صبر کنید"));
 			}
 			var user = _userService.GetUserByphoneNumber(phonenumber);
+			var sms = new SMSMessages(user.ActivateCode);
 			if (user != null)
-				return new JsonResult(_sms.SendSMS(phonenumber, user.ActivateCode).Result);
+				return new JsonResult(_sms.SendSMS(phonenumber, sms.SignIn).Result);
 			return new JsonResult(OperationResault.Error("کاربری یافت نشد"));
 		}
 
@@ -186,7 +188,8 @@ namespace CVProfile.Controllers
 					return new JsonResult(OperationResault.Error($"تا ارسال پیام بعد 3 دقیقه صبر کنید"));
 			}
 			var res = _userService.RecoverUser(phonenumber);
-			var smsRes = _sms.SendSMS(phonenumber, res.Message).Result;
+			var sms = new SMSMessages(res.Message);
+			var smsRes = _sms.SendSMS(phonenumber, sms.RecoverPassWord).Result;
 			if (res.Status == OperationResultStatus.Success && smsRes.Status == OperationResultStatus.Success)
 				return new JsonResult(OperationResault.Success("رمز عبور جدید با موفقیت ارسال شد"));
 			if (smsRes.Status != OperationResultStatus.Success)
@@ -194,6 +197,8 @@ namespace CVProfile.Controllers
 			return new JsonResult(res);
 		}
 
+
+		#region Private_Methods
 		private void SetResendsmsTime()
 		{
 			HttpContext.Session.Set("ReSend", Encoding.ASCII.GetBytes(DateTime.Now.TimeOfDay.ToString()));
@@ -210,6 +215,7 @@ namespace CVProfile.Controllers
 			var keys = HttpContext.Session.Keys.ToList();
 			return keys.Any(k => k.Contains(key));
 		}
+		#endregion
 	}
 }
 

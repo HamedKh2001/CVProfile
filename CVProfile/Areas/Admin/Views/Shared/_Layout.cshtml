@@ -140,7 +140,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/admin/Skill/index"><i class="fa fa-th"></i> لـیـسـت مـهـارت هـا</a></li>
+                            <li><a href="/admin/Skill/index"><i class="fa fa-list-ol"></i>  مـهـارت هـا</a></li>
                             <li><a href="/admin/Skill/create"><i class="fa fa-plus"></i> افزودن</a></li>
                         </ul>
                     </li>
@@ -152,11 +152,15 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/admin/Owner/index"><i class="fa fa-users"></i> لـیـسـت پروفایل هـا</a></li>
+                            <li><a href="/admin/Owner/index"><i class="fa fa-list-alt"></i>  پروفایل هـا</a></li>
                             <li><a href="/admin/Owner/create"><i class="fa fa-user-plus"></i> افزودن</a></li>
                         </ul>
                     </li>
-
+                     <li>
+                        <a href="/admin/User/index">
+                            <i class="fa fa-users"></i> <span>کاربران</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -390,7 +394,6 @@
     <!-- AdminLTE for demo purposes -->
     <script src="/Admin/dist/js/demo.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
