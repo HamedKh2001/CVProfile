@@ -1,11 +1,11 @@
 ﻿using CoreLayer.Dtos;
-using CORETest.Utilities;
+using CoreLayer.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CoreLayer.IServices
 {
-    public interface IOwnerService
+	public interface IOwnerService
     {
         Task<OperationResault> Insertasync(InsertOwnerDto insertOwnerDto);
         Task<OwnerDto> GetActiveProfile();

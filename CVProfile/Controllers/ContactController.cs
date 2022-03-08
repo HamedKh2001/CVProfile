@@ -1,16 +1,9 @@
 ﻿using CoreLayer.Dtos;
-using CoreLayer.Hubs;
 using CoreLayer.IServices;
-using CoreLayer.Services.FileManager;
 using CoreLayer.Utilities;
-using CORETest.Utilities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,7 +35,7 @@ namespace CVProfile.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-					return new JsonResult(_orderService.InsertOrderasync(contactDto,User, cancellationToken).Result);
+					return new JsonResult(_orderService.InsertOrderasync(contactDto, User, cancellationToken).Result);
 				}
 				return new JsonResult(OperationResault.Error("فیلد ها را وارد کنید"));
 			}

@@ -1,5 +1,5 @@
 ﻿using CoreLayer.IServices;
-using CORETest.Utilities;
+using CoreLayer.Utilities;
 using DataLayer.Context;
 using DataLayer.Entities;
 using Microsoft.AspNet.SignalR;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CVProfile.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Area("Admin")]
     [Authorize(Roles = "Owner")]
     public class ExperienceController : Controller
     {

@@ -1,5 +1,5 @@
 ﻿using CoreLayer.IServices;
-using CORETest.Utilities;
+using CoreLayer.Utilities;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +15,11 @@ namespace CVProfile.Areas.Admin.Controllers
 	public class SkillController : Controller
 	{
 		private readonly IGenericRepository<Skill> _genericRepository;
-		public SkillController(IGenericRepository<Skill> genericRepository)
+		private readonly Isapl _isapl;
+		public SkillController(IGenericRepository<Skill> genericRepository, Isapl isapl)
 		{
 			_genericRepository = genericRepository;
+			_isapl = isapl;
 		}
 		public IActionResult Index()
 		{
@@ -35,12 +37,13 @@ namespace CVProfile.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var Res = _genericRepository.Insertasync(skill).Result;
-				if (Res.Status == OperationResultStatus.Success)
-				{
-					return Redirect("/admin/skill");
-				}
-				ModelState.AddModelError("Name", Res.Message);
+				//var Res = _genericRepository.Insertasync(skill).Result;
+				var Res = _isapl.insert(skill);
+				//if (Res.Status == OperationResultStatus.Success)
+				//{
+				//	return Redirect("/admin/skill");
+				//}
+				//ModelState.AddModelError("Name", Res.Message);
 			}
 			return View(skill);
 		}

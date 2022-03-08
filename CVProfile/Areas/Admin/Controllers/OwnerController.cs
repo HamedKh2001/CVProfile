@@ -1,15 +1,10 @@
 ﻿using CoreLayer.Dtos;
 using CoreLayer.IServices;
-using CoreLayer.Services.FileManager;
-using CORETest.Utilities;
+using CoreLayer.Utilities;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Buffers;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CVProfile.Areas.Admin.Controllers
 {
@@ -50,17 +45,18 @@ namespace CVProfile.Areas.Admin.Controllers
 		public IActionResult Edit(int id)
 		{
 			var model = _ownerService.GetProfileasync(id).Result;
-			return View(new EditOwnerDto() { 
-			About = model.About,
-			IsActive = model.IsActive,
-			BirthDate = model.BirthDate,	
-			City = model.City,
-			Email = model.Email,
-			FullName = model.FullName,
-			Id = id,
-			Languages = model.Languages,
-			Phonenumber = model.Phonenumber,
-			ProfilePhoto = model.ProfilePhoto,
+			return View(new EditOwnerDto()
+			{
+				About = model.About,
+				IsActive = model.IsActive,
+				BirthDate = model.BirthDate,
+				City = model.City,
+				Email = model.Email,
+				FullName = model.FullName,
+				Id = id,
+				Languages = model.Languages,
+				Phonenumber = model.Phonenumber,
+				ProfilePhoto = model.ProfilePhoto,
 			});
 		}
 		[HttpPost]

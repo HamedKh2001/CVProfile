@@ -1,7 +1,5 @@
 ﻿using CoreLayer.IServices;
-using CoreLayer.Services.FileManager;
 using CoreLayer.Utilities;
-using CORETest.Utilities;
 using CVProfile.Models;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Authentication;

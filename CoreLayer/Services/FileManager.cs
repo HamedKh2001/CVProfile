@@ -1,6 +1,6 @@
 ﻿using CoreLayer.Hubs;
+using CoreLayer.IServices;
 using CoreLayer.Utilities;
-using CORETest.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -9,7 +9,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreLayer.Services.FileManager
+namespace CoreLayer.Services
 {
 	public class FileManager : IFileManager
 	{
@@ -101,7 +101,7 @@ namespace CoreLayer.Services.FileManager
 					{
 						await output.WriteAsync(buffer, 0, readBytes);
 						totalReadBytes += readBytes;
-						progress = (int)((float)totalReadBytes / (float)totalBytes * 100.0);
+						progress = (int)(totalReadBytes / (float)totalBytes * 100.0);
 						await _uploadHub.Clients.All.SendProgress(file.FileName, progress);
 						//await Task.Delay(100);
 					}

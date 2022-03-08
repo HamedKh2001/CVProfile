@@ -1,4 +1,4 @@
-﻿using CORETest.Utilities;
+﻿using CoreLayer.Utilities;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreLayer.Services.FileManager
+namespace CoreLayer.IServices
 {
 	public interface IFileManager
 	{

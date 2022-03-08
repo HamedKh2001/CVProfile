@@ -35,11 +35,6 @@ namespace CVProfile.Controllers
 
 		public IActionResult Privacy()
 		{
-			//StringBuilder sam = new();
-			//string str = "123";
-			//str[1] = 's';
-			//StringBuilder sam1 = new("123");
-			//sam1[1] = 's';
 			return View();
 		}
 

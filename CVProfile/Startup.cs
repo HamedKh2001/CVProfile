@@ -2,7 +2,6 @@ using CoreLayer.AutoMapper;
 using CoreLayer.Hubs;
 using CoreLayer.IServices;
 using CoreLayer.Services;
-using CoreLayer.Services.FileManager;
 using DataLayer.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +39,7 @@ namespace CVProfile
 			services.AddScoped<IOwnerService, OwnerService>();
 			services.AddScoped<IOrderService, OrderService>();
 			services.AddScoped<IMessageService, MessageService>();
+			services.AddTransient<Isapl, sapl>();
 
 			services.AddAuthentication(option =>
 			{

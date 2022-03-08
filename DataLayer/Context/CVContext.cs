@@ -17,11 +17,11 @@ namespace DataLayer.Context
 		public CVContext(DbContextOptions<CVContext> options) : base(options)
 		{
 		}
-		public DbSet<User> Users { get; set; }
-		public DbSet<Contact> Contacts { get; set; }
-		public DbSet<Owner> Myselves { get; set; }
-		public DbSet<Skill> Skills { get; set; }
-		public DbSet<WorkExperience> WorkExperiences { get; set; }
+		public virtual DbSet<User> Users { get; set; }
+		public virtual DbSet<Contact> Contacts { get; set; }
+		public virtual DbSet<Owner> Myselves { get; set; }
+		public virtual DbSet<Skill> Skills { get; set; }
+		public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

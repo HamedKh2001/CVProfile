@@ -1,4 +1,4 @@
-﻿using CoreLayer.Utilities;
+﻿using DataLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CoreLayer.IServices
 {
-	public interface ISMS
+	public interface Isapl
 	{
-		Task<OperationResault> SendSMS(string PhoneNumber, string Text);
+		Task<Skill> insert(Skill skill);
 	}
 }

@@ -1,16 +1,11 @@
 ﻿using CoreLayer.Dtos;
 using CoreLayer.IServices;
-using CoreLayer.Services.FileManager;
 using CoreLayer.Utilities;
-using CORETest.Utilities;
 using DataLayer.Context;
 using DataLayer.Entities;
-using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
